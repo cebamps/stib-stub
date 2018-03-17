@@ -1,9 +1,12 @@
-from flask import Flask, jsonify, abort
+import os
 from time import time
+
+from flask import Flask, jsonify, abort
 
 
 app = Flask(__name__)
 
+app.config['PORT'] = int(os.environ.get('STIBSTUB_PORT', 0)) or None
 
 # Selected by hand; these form kind of a clockwise circular arc around
 # Brussels.
@@ -55,4 +58,4 @@ def not_implemented(**kwargs):
 
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(port=app.config['PORT'])
